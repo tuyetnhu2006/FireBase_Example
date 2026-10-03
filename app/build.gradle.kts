@@ -8,7 +8,7 @@ android {
   compileSdk = 34
 
   defaultConfig {
-    applicationId = "vn.edu.ueh.thanhdnh.firebase_example"
+    applicationId = "com.example.myfirebase"
     minSdk = 29
     targetSdk = 34
     versionCode = 1
@@ -34,6 +34,7 @@ android {
 
 dependencies {
 
+  implementation(libs.activity.ktx)
   implementation(libs.appcompat)
   implementation(libs.material)
   implementation(libs.activity)
@@ -42,4 +43,7 @@ dependencies {
   testImplementation(libs.junit)
   androidTestImplementation(libs.ext.junit)
   androidTestImplementation(libs.espresso.core)
+  implementation("com.github.bumptech.glide:glide:4.16.0")
+  implementation(platform("com.google.firebase:firebase-bom:34.19.0"))
+  implementation("com.google.firebase:firebase-analytics")
 }
