@@ -16,7 +16,6 @@ public class ArticleDetailActivity extends AppCompatActivity {
     TextView txtContent;
     TextView txtView;
     FirebaseFirestore db;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
