@@ -20,11 +20,14 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import android.content.Intent;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
     FirebaseFirestore db;
     RecyclerView recyclerView;
     List<Article> articles = new ArrayList<>();
+    Button btnAddArticle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +39,19 @@ public class MainActivity extends AppCompatActivity {
                     return insets;
                 }
         );
+        setContentView(R.layout.activity_main);
+        btnAddArticle = findViewById(R.id.btn_add_article);
 
+        btnAddArticle.setOnClickListener(view -> {
+
+            Intent intent =
+                    new Intent(
+                            MainActivity.this,
+                            AddArticleActivity.class
+                    );
+
+            startActivity(intent);
+        });
         FirebaseApp.initializeApp(this);
         recyclerView = findViewById(R.id.reclyclerview);
         ArticleViewAdapter adapter = new ArticleViewAdapter(this, articles);
