@@ -39,53 +39,13 @@ public class MainActivity extends AppCompatActivity {
                     return insets;
                 }
         );
-        setContentView(R.layout.activity_main);
-        btnAddArticle = findViewById(R.id.btn_add_article);
+        Intent intent = new Intent(
+                MainActivity.this,
+                ShowDataActivity.class
+        );
 
-        btnAddArticle.setOnClickListener(view -> {
+        startActivity(intent);
 
-            Intent intent =
-                    new Intent(
-                            MainActivity.this,
-                            AddArticleActivity.class
-                    );
-
-            startActivity(intent);
-        });
-        FirebaseApp.initializeApp(this);
-        recyclerView = findViewById(R.id.reclyclerview);
-        ArticleViewAdapter adapter = new ArticleViewAdapter(this, articles);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
-        db = FirebaseFirestore.getInstance();
-        db.collection("articles")
-                .addSnapshotListener(
-                        new EventListener<QuerySnapshot>() {
-                            @Override
-                            public void onEvent(
-                                    @Nullable QuerySnapshot snapshots,
-                                    @Nullable FirebaseFirestoreException error) {
-                                if (snapshots != null) {
-                                    articles.clear();
-                                    for (QueryDocumentSnapshot q : snapshots) {
-                                        Map<String, Object> data = q.getData();
-                                        String id = q.getId();
-                                        String title = (String) data.get("title");
-                                        String content = (String) data.get("content");
-                                        String imgCover = (String) data.get("img_cover");
-                                        Number viewNumber = (Number) data.get("view");
-                                        int view = 0;
-                                        if (viewNumber != null) {
-                                            view = viewNumber.intValue();
-                                        }
-                                        Article article = new Article(id, title, content, imgCover, view);
-                                        articles.add(article);
-                                    }
-                                    adapter.update(articles);
-                                    adapter.notifyDataSetChanged();
-                                }
-                            }
-                        }
-                );
+        finish();
     }
 }
